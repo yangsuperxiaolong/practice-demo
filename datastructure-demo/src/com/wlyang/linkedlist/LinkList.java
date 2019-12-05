@@ -82,20 +82,22 @@ class LinkList {
      *
      * @return Node 反转后链表的头节点
      */
-    public Node reverse(){
+    public void reverse(){
         if(isEmpty()){
             throw new RuntimeException("单链表为空，无法反转");
         }
-        Node p = head;
-        Node q = head.getNext();
-
-        while (q!=null){
-            Node temp = p;
-
-
+        Node p = head.getNext();
+        Node q = p;
+        if(p.getNext() == null){
+            return;
         }
-
-        return head;
+        Node newHead = new Node(-1,"'");
+        while (q!=null){
+            q = p.getNext();
+            p.setNext(newHead.getNext());
+            newHead.setNext(p);
+        }
+        head.setNext(newHead.getNext());
     }
 
     /**
