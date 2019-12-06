@@ -62,7 +62,7 @@ class LinkList {
         //temp初始值已经指向链表的第一个节点
         //倒数第size个，即链表第1个元素，倒数第一个，即链表第size个元素
         //临界点最好用实际值算一下。
-        for (int i = 0; i < size()-k;i++){
+        for (int i = 0; i < size() - k; i++) {
             temp = temp.getNext();
         }
         return temp;
@@ -78,26 +78,90 @@ class LinkList {
     }
 
     /**
-     * description: 单链表反转 <br>
+     * description: 单链表反转方式1 - 头节点插入法 <br>
      *
      * @return Node 反转后链表的头节点
      */
-    public void reverse(){
-        if(isEmpty()){
+    public void reverse() {
+        //判断链表是否为空
+        if (isEmpty()) {
             throw new RuntimeException("单链表为空，无法反转");
         }
         Node p = head.getNext();
-        Node q = p;
-        if(p.getNext() == null){
+        Node q = null;
+        //如果链表只有一个元素，那就不需要反转
+        if (p.getNext() == null) {
             return;
         }
-        Node newHead = new Node(-1,"'");
-        while (q!=null){
+        //借助一个新的头节点插入
+        Node newHead = new Node(-1, "");
+        //p表示待插入节点，q用来表示待插入节点的后一个节点
+        //q节点的意义：因为q插入后，q.next内容就丢了，所以需要一个变量保存
+        while (p != null) {
             q = p.getNext();
             p.setNext(newHead.getNext());
             newHead.setNext(p);
+            p = q;
         }
+        //将当前链表头指向反转成功的链表
         head.setNext(newHead.getNext());
+    }
+
+    /**
+     * description: 单链表反转-方式2 尾节点插入<br>
+     * 缺点: 需要预先找到尾节点
+     *
+     * @return Node 反转后链表的头节点
+     */
+    public void reverse1() {
+        //判断链表是否为空
+        if (isEmpty()) {
+            throw new RuntimeException("单链表为空，无法反转");
+        }
+        Node p = head.getNext();
+        Node q = null;
+        //如果链表只有一个元素，那就不需要反转
+        if (p.getNext() == null) {
+            return;
+        }
+        Node end = head;
+        //找到尾节点
+        while (end.getNext() != null) {
+            end = end.getNext();
+        }
+        while (p != end) {
+            head.setNext(p.getNext());
+            q = p.getNext();
+            p.setNext(end.getNext());
+            end.setNext(p);
+            p = q;
+        }
+    }
+
+
+    /**
+     * description: 单链表反转-方式2 就地反转<br>
+     * 缺点: 需要预先找到尾节点
+     *
+     * @return Node 反转后链表的头节点
+     */
+    public void reverse2() {
+        //判断链表是否为空
+        if (isEmpty()) {
+            throw new RuntimeException("单链表为空，无法反转");
+        }
+        Node p = head.getNext();
+        Node q = p.getNext();
+        //如果链表只有一个元素，那就不需要反转
+        if (p.getNext() == null) {
+            return;
+        }
+        while (q != null) {
+            p.setNext(q.getNext());
+            q.setNext(head.getNext());
+            head.setNext(q);
+            q = p.getNext();
+        }
     }
 
     /**

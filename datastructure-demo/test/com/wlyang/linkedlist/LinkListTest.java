@@ -7,6 +7,9 @@ public class LinkListTest {
         list.addByOrder(new Node(3,"节点3"));
         list.addByOrder(new Node(2,"节点2"));
         list.show();
+        list.reverse2();
+        System.out.println("链表反转后");
+        list.show();
         Node kNode = list.getBackwords(4);
         System.out.println("knode="+kNode.getId());
         System.out.println(list.size());
