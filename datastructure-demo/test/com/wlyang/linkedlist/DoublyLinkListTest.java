@@ -4,6 +4,7 @@ package com.wlyang.linkedlist;
  * @Description:
  * @author: wlyang
  * @since: 2019-12-6
+ *
  */
 public class DoublyLinkListTest {
     public static void main(String[] args) {
@@ -14,8 +15,8 @@ public class DoublyLinkListTest {
         doublyLinkList.add(new DoublyNode(5,"双向节点5"));
         doublyLinkList.show();
 
-        doublyLinkList.delete(3);
-        System.out.println("删除节点3之后");
+        doublyLinkList.delete(5);
+        System.out.println("删除节点5之后");
         doublyLinkList.show();
 
         doublyLinkList.addByOrder(new DoublyNode(4,"节点4"));

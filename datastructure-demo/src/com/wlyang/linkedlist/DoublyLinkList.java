@@ -46,15 +46,17 @@ public class DoublyLinkList {
      * @param n
      */
     public void delete(int n) {
-        DoublyNode temp = head;
         if (isEmpty()) {
             throw new RuntimeException("链表为空！");
         }
+        DoublyNode temp = head.getNext();
         //找到尾节点
-        while (temp.getNext() != null) {
+        while (temp != null) {
             if (n == temp.getId()) {
                 temp.getPre().setNext(temp.getNext());
-                temp.getNext().setPre(temp.getPre());
+                if (temp.getNext() != null) {
+                    temp.getNext().setPre(temp.getPre());
+                }
                 return;
             }
             temp = temp.getNext();
@@ -70,16 +72,21 @@ public class DoublyLinkList {
     public void addByOrder(DoublyNode node) {
         DoublyNode temp = head;
         //找到正确位置，在temp后插入
-        while (temp.getNext() != null && node.getId() >= temp.getNext().getId()){
+        while (temp.getNext() != null && node.getId() >= temp.getNext().getId()) {
             if (node.getId() == temp.getId()) {
                 throw new RuntimeException("节点已存在，添加失败");
             }
             temp = temp.getNext();
         }
-        temp.getNext().setPre(node);
-        node.setPre(temp);
-        node.setNext(temp.getNext());
-        temp.setNext(node);
+        if (temp.getNext() != null) {
+            temp.getNext().setPre(node);
+            node.setPre(temp);
+            node.setNext(temp.getNext());
+            temp.setNext(node);
+        }else{
+            temp.setNext(node);
+            node.setPre(temp);
+        }
     }
 
     public Boolean isEmpty() {
