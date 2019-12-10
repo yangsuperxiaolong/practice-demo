@@ -49,18 +49,42 @@ public class CircleLinkList {
         }
         System.out.println(temp);
     }
+    
+    /*
+     * description:  环形链表长度<br>
+     * 
+     * @param 
+     * @return int
+     */ 
+    public int size() {
+        int size = 0;
+        if(head.getNext()==null){
+            return size;
+        }
+        DoublyNode temp=head.getNext();
+        while (temp.getNext() !=head.getNext()) {
+            size++;
+            temp = temp.getNext();
+        }
+        size++;
+        return size;
+    }
 
     /**
-     * 实现循环链表节点删除
+     * description: 根据节点ID删除环形链表节点 <br>
+     *
+     * @param id
+     * @return void
      */
-    public void delete() {
+    public void deleteById(int id) {
         if(head.getNext()==null){
             throw new RuntimeException("链表为空");
         }
         DoublyNode temp=head.getNext();
         while (temp.getNext() !=head.getNext()) {
-            System.out.println(temp);
-            temp = temp.getNext();
+            if(temp.getId() == id){
+
+            }
         }
         System.out.println(temp);
     }
