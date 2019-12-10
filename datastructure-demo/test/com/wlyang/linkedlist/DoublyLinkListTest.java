@@ -22,7 +22,5 @@ public class DoublyLinkListTest {
         doublyLinkList.addByOrder(new DoublyNode(4,"节点4"));
         System.out.println("按序加入节点4");
         doublyLinkList.show();
-
-
     }
 }

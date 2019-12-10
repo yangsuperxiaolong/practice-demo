@@ -13,7 +13,7 @@ public class DoublyLinkList {
     }
 
     /**
-     * 实现双向链表的增删改查
+     * 双向链表节点添加
      */
     public void add(DoublyNode node) {
         DoublyNode temp = head;
