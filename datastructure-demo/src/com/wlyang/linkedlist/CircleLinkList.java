@@ -6,86 +6,76 @@ package com.wlyang.linkedlist;
  * @since: 2019-12-10
  */
 public class CircleLinkList {
-    private DoublyNode head;
-
-    public CircleLinkList() {
-        head = new DoublyNode(-1, "");
-    }
+    private Node first;
 
     /**
      * 实现循环链表节点添加
      */
-    public void add(DoublyNode node) {
-        if(head.getNext()==null){
-            //如果链表为空
-            head.setNext(node);
+    public void add(Node node) {
+        if (first == null) {
             node.setNext(node);
-            node.setPre(node);
-        }else {
-            //找到尾节点
-            DoublyNode temp=head.getNext();
-            while (temp.getNext()!=head.getNext()){
+            first = node;
+        } else {
+            Node temp = first;
+            while (temp.getNext() != first) {
                 temp = temp.getNext();
             }
-            //在尾节点和第一个节点插入 节点
+            //在temp后插入
+            node.setNext(temp.getNext());
             temp.setNext(node);
-            node.setNext(head.getNext());
-            node.setPre(temp);
-            head.getNext().setPre(node);
         }
     }
 
     /**
+     *
      * 实现循环链表节点遍历
      */
     public void show() {
-        if(head.getNext()==null){
-            throw new RuntimeException("链表为空");
+        if (first == null) {
+            throw new RuntimeException("链表为空！");
         }
-        DoublyNode temp=head.getNext();
-        while (temp.getNext() !=head.getNext()) {
+        Node temp = first;
+        while (true) {
             System.out.println(temp);
+            if (temp.getNext() == first) {
+                break;
+            }
             temp = temp.getNext();
         }
-        System.out.println(temp);
-    }
-    
-    /*
-     * description:  环形链表长度<br>
-     * 
-     * @param 
-     * @return int
-     */ 
-    public int size() {
-        int size = 0;
-        if(head.getNext()==null){
-            return size;
-        }
-        DoublyNode temp=head.getNext();
-        while (temp.getNext() !=head.getNext()) {
-            size++;
-            temp = temp.getNext();
-        }
-        size++;
-        return size;
     }
 
     /**
-     * description: 根据节点ID删除环形链表节点 <br>
-     *
-     * @param id
-     * @return void
+     * 实现循环链表节点删除
+     * “单向链表”(只有next域)，如果要删除节点，必须要定位到删除节点的前一个节点
      */
-    public void deleteById(int id) {
-        if(head.getNext()==null){
-            throw new RuntimeException("链表为空");
+    public void delete(int id) {
+        if (first == null) {
+            throw new RuntimeException("链表为空！");
         }
-        DoublyNode temp=head.getNext();
-        while (temp.getNext() !=head.getNext()) {
-            if(temp.getId() == id){
-
+        Node temp = first;
+        //如果只有一个元素 并且当前节点就是需要删除的
+        if (temp.getId() == id && temp.getNext() == first) {
+            first = null;
+            return;
+        }
+        while (temp.getNext() != first) {
+            if (temp.getNext().getId() == id) {
+                temp.setNext(temp.getNext().getNext());
+                return;
+            } else {
+                temp = temp.getNext();
             }
         }
-        System.out.println(temp);
+        if (temp.getNext().getId() == id) {
+            //如果是删除first节点，说明要把first节点后移一位
+            temp.setNext(temp.getNext().getNext());
+            first = temp.getNext();
+        } else {
+            throw new RuntimeException("删除节点不存在");
+        }
+    }
+
+    public Node getFirst(){
+        return first;
     }
 }

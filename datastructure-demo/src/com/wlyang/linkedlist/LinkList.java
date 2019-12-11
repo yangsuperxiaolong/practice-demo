@@ -1,6 +1,6 @@
 package com.wlyang.linkedlist;
 
-class LinkList {
+public class LinkList {
     private Node head;
 
     public LinkList() {
@@ -198,5 +198,26 @@ class LinkList {
             temp = temp.getNext();
         }
 
+    }
+
+    /**
+     * description: 根据id查找链表节点 <br>
+     *
+     * @param id
+     * @return Node
+     */
+    public Node search(int id) {
+        Node temp = head.getNext();
+        if (temp == null) {
+            System.out.println("链表为空");
+            throw new RuntimeException("节点不存在");
+        }
+        while (temp != null) {
+            if(temp.getId() == id){
+                return temp;
+            }
+            temp = temp.getNext();
+        }
+        throw new RuntimeException("节点不存在");
     }
 }
