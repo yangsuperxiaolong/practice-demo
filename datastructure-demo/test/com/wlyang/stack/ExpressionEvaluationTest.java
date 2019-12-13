@@ -18,7 +18,7 @@ public class ExpressionEvaluationTest {
         operatorList.add('/');
 
         //定义一个待求值的表达式
-        String expression = "1+2+3*5+7";
+        String expression = "3*5+7+1+2";
         System.out.println("计算结果为：" + calculate(expression));
 
     }
@@ -60,7 +60,14 @@ public class ExpressionEvaluationTest {
                         numStack.push(calcu(x, y, expression.charAt(i)));
                         operatorStack.push(topChar);
                         i++;
-                    } else {
+                    } else if(isHighPriority(topChar, expression.charAt(i))){
+                        //如果当前符号的优先级比栈顶符号优先级低
+                        //则 弹出数栈和当前符号的后一个数字，用当前符号运算，得到结果压入数栈
+                        int y= numStack.pop();
+                        int x =numStack.pop();
+                        numStack.push(calcu(x, y, topChar));
+                        operatorStack.push(expression.charAt(i));
+                    }else {
                         operatorStack.push(topChar);
                         operatorStack.push(expression.charAt(i));
                     }
