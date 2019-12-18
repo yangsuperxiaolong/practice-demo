@@ -107,7 +107,7 @@ public class ExpressionEvaluationTest {
             case '*':
                 return x * y;
             case '/':
-                return x - y;
+                return x / y;
             default:
                 return 0;
         }

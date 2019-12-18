@@ -70,6 +70,20 @@ public class StackArray<T> {
         return result;
     }
 
+    /**
+     * 查看栈顶元素
+     *
+     * @return
+     */
+    public T peek() {
+        if (isEmpty()) {
+            System.out.println("当前栈为空");
+            return null;
+        }
+        T result = (T) stack[top];
+        return result;
+    }
+
     public void push(T t) {
         if (isFull()) {
             System.out.println("当前栈已满");
