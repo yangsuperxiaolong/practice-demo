@@ -10,7 +10,11 @@ import java.util.Arrays;
 public class MergeSort {
     public static void main(String[] args) {
         int[] array = new int[]{7,2,4,5,9,3,8,6,1};
+//        int[] a = new int[]{1,2,3,4,5,6};
+//        int[] b = new int[]{7,8,9};
+//        System.arraycopy(b,0,a,2,2);
         mergeSort(array);
+        ArrayUtil.print(array);
     }
     public static int[] mergeSort(int[] orginalArray){
         //先将元素数组切分
@@ -33,14 +37,14 @@ public class MergeSort {
                     leftBegin++;
                 }
             }
-            if(leftBegin<leftArray.length-1){
-                Arrays.
+            if(leftBegin<leftArray.length){
+                System.arraycopy(leftArray,leftBegin,result,result.length-1-leftBegin,result.length-leftBegin-rightArray.length);
             }
-            if(rightBegin<rightArray.length-1){
-
+            if(rightBegin<rightArray.length){
+                System.arraycopy(rightArray,rightBegin,result,result.length-1-rightBegin,result.length-rightBegin-leftArray.length);
             }
         }
         //合并
-        return null;
+        return orginalArray;
     }
 }
