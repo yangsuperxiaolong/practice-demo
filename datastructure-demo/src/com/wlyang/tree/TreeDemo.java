@@ -1,5 +1,7 @@
 package com.wlyang.tree;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -10,56 +12,84 @@ import java.util.Stack;
  */
 public class TreeDemo {
     public static void main(String[] args) {
-        TreeNode node1 = new TreeNode(1,"龙大爷");
-        TreeNode node2 = new TreeNode(2,"龙大爷1");
-        TreeNode node3 = new TreeNode(3,"龙大爷2");
-        TreeNode node4 = new TreeNode(4,"龙大爷2");
-        TreeNode node5 = new TreeNode(5,"龙大爷2");
+        TreeNode node1 = new TreeNode(1, "龙大爷");
+        TreeNode node2 = new TreeNode(2, "龙大爷1");
+        TreeNode node3 = new TreeNode(3, "龙大爷2");
+        TreeNode node4 = new TreeNode(4, "龙大爷2");
+        TreeNode node5 = new TreeNode(5, "龙大爷2");
+        TreeNode node6 = new TreeNode(6, "龙大爷2");
         node3.setLeft(node4);
         node3.setRight(node5);
         node1.setLeft(node3);
+        node5.setRight(node6);
         node1.setRight(node2);
         Tree s = new Tree(node1);
-        s.postOrder2();
+        s.postOrder3();
     }
 }
 
-class Tree{
-    private  TreeNode root;
+class Tree {
+    private TreeNode root;
 
     public Tree(TreeNode root) {
         this.root = root;
     }
 
     //后序遍历
-    public void postOrder(){
+    public void postOrder() {
         this.root.postOrder();
     }
+
     /**
-     * description: 后序遍历非递归 <br>
+     * description: 中遍历非递归 <br>
      *
      * @param
      * @return void
      */
-    public void postOrder2(){
+    public void postOrder2() {
         Stack<TreeNode> nodeStack = new Stack<>();
-        while (root!=null){
+        while (root != null) {
             nodeStack.push(root);
             root = root.getLeft();
         }
         //
-        while (!nodeStack.empty()){
+        while (!nodeStack.empty()) {
             TreeNode temp = nodeStack.pop();
-            if(temp.getRight()!=null){
+            if (temp.getRight() != null) {
                 nodeStack.push(temp.getRight());
-                while(temp.getRight().getLeft()!=null){
+                while (temp.getRight().getLeft() != null) {
                     nodeStack.push(temp.getRight().getLeft());
                 }
                 System.out.println(temp.toString());
-            }else{
+            } else {
                 System.out.println(temp.toString());
             }
         }
+    }
+
+    /**
+     * 后序遍历 非递归
+     */
+    public List<Integer> postOrder3() {
+        Stack<TreeNode> nodeStack = new Stack<>();
+        List<Integer> result = new ArrayList<>();
+        while (root != null) {
+            nodeStack.push(root);
+            root = root.getLeft();
+        }
+        //
+        while (!nodeStack.empty()) {
+            TreeNode temp = nodeStack.peek();
+            if (temp.getRight() == null && temp.getLeft() == null) {
+                result.add(nodeStack.pop().getId());
+            } else if (temp.getLeft()!=null){
+                result.add(temp.getId());
+                nodeStack.pop();
+            } else if(temp.getRight()!=null){
+
+            }
+        }
+        return result;
     }
 
     public TreeNode getRoot() {
@@ -71,7 +101,7 @@ class Tree{
     }
 }
 
-class TreeNode{
+class TreeNode {
     private int id;
     private String name;
     private TreeNode left;
@@ -82,11 +112,11 @@ class TreeNode{
         this.name = name;
     }
 
-    public void  postOrder(){
-        if(left!=null){
+    public void postOrder() {
+        if (left != null) {
             left.postOrder();
         }
-        if(right!=null){
+        if (right != null) {
             right.postOrder();
         }
         System.out.println(this.toString());
@@ -114,7 +144,9 @@ class TreeNode{
 
     public void setLeft(TreeNode left) {
         this.left = left;
-    }{
+    }
+
+    {
 
     }
 
