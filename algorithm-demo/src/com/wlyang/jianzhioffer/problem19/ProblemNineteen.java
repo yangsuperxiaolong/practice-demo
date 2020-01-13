@@ -24,21 +24,24 @@ public class ProblemNineteen {
 class Solution {
     public static ArrayList<Integer> printMatrix(int[][] matrix) {
         ArrayList<Integer> result = new ArrayList<>();
-        //当前x坐标
+        //定义当前起点的坐标
+        int rowBegin = 0;
+        int colBegin = 0;
+        //定义当前轮次的右下角坐标
         int rowNum = matrix.length;
         int colNum = matrix[0].length;
-        //
-        for (int i = 0; i < colNum; i++) {
-            result.add(matrix[0][i]);
+
+        for (int i = colBegin; i < colNum; i++) {
+            result.add(matrix[rowBegin][i]);
         }
-        for(int j = 1; j<rowNum;j++){
-            result.add(matrix[j][3]);
+        for(int j = rowBegin+1; j<rowNum;j++){
+            result.add(matrix[j][colNum-1]);
         }
-        for(int k = 2;k>=0;k--){
-            result.add(matrix[3][k]);
+        for(int k = colBegin-1;k>=colBegin;k--){
+            result.add(matrix[rowNum-1][k]);
         }
-        for(int h = 2;h>=1;h--){
-            result.add(matrix[h][0]);
+        for(int h = rowNum-1;h>=rowBegin;h--){
+            result.add(matrix[h][colBegin]);
         }
         //result.add(matrix)
         return result;
