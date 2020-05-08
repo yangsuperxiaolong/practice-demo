@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class ProblemNineteen {
     public static void main(String[] args) {
-        int[][] array = new int[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+        int[][] array = new int[][]{{1,2,3,4},{5,6,7,8}};
         ArrayList<Integer> result = Solution.printMatrix(array);
         System.out.println(result);
     }
@@ -30,20 +30,28 @@ class Solution {
         //定义当前轮次的右下角坐标
         int rowNum = matrix.length;
         int colNum = matrix[0].length;
-
-        for (int i = colBegin; i < colNum; i++) {
-            result.add(matrix[rowBegin][i]);
+        while (rowNum>rowBegin && colNum>colBegin) {
+            for (int i = colBegin; i < colNum; i++) {
+                result.add(matrix[rowBegin][i]);
+            }
+            rowBegin++;
+            for (int j = rowBegin; j < rowNum; j++) {
+                result.add(matrix[j][colNum - 1]);
+            }
+            colNum = colNum - 1;
+            if(rowNum>rowBegin) {
+                for (int k = colNum - 1; k >= colBegin; k--) {
+                    result.add(matrix[rowNum - 1][k]);
+                }
+            }
+            rowNum = rowNum - 1;
+            if(colNum>colBegin) {
+                for (int h = rowNum - 1; h >= rowBegin; h--) {
+                    result.add(matrix[h][colBegin]);
+                }
+            }
+            colBegin++;
         }
-        for(int j = rowBegin+1; j<rowNum;j++){
-            result.add(matrix[j][colNum-1]);
-        }
-        for(int k = colBegin-1;k>=colBegin;k--){
-            result.add(matrix[rowNum-1][k]);
-        }
-        for(int h = rowNum-1;h>=rowBegin;h--){
-            result.add(matrix[h][colBegin]);
-        }
-        //result.add(matrix)
         return result;
     }
 }
